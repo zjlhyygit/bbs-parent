@@ -1,10 +1,9 @@
 package com.zjl.dto.user.dto;
 
-import lombok.Data;
 
 import java.util.Date;
 
-@Data
+
 public class GetUserDto extends AddUserDto{
 
     private Integer id;
@@ -13,5 +12,11 @@ public class GetUserDto extends AddUserDto{
 
     private Date ut;
 
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

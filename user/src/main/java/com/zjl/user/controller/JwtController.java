@@ -19,7 +19,7 @@ public class JwtController {
 
     @RequestMapping(path = "/get", method = RequestMethod.GET, produces = {"application/json;charset=utf-8"})
     @ResponseBody
-    public ResponseEntity<JwtTokenDto> getToken(@Param("account") String account, @Param("password") String password) throws UnsupportedEncodingException {
+    public ResponseEntity<JwtTokenDto> getToken(@RequestParam("account") String account, @RequestParam("password") String password) throws UnsupportedEncodingException {
         return ResponseEntity.ok(jwtService.getToken(new GetTokenDto(account, password)));
     }
 

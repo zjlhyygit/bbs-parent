@@ -5,7 +5,9 @@ import com.alibaba.nacos.api.config.ConfigType;
 import com.alibaba.nacos.api.config.annotation.NacosConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-@NacosConfigurationProperties(dataId = "user-service",prefix = "user", type = ConfigType.YAML)
+import java.util.Map;
+
+@NacosConfigurationProperties(dataId = "user-service", prefix = "user",groupId = "DEFAULT_GROUP", type = ConfigType.JSON, autoRefreshed = true)
 @Component
 public class DemoConfig {
 

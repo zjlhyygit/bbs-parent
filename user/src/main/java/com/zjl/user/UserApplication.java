@@ -10,10 +10,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableNacosConfig
+@EnableNacosConfig(globalProperties = @NacosProperties(serverAddr = "127.0.0.1:8848"))
 @MapperScan("com.zjl.user.mapper")
 public class UserApplication {
-
 
     public static void main(String[] args) throws InterruptedException {
         SpringApplication.run(UserApplication.class, args);

@@ -1,12 +1,10 @@
 package com.zjl.subject.controller;
 
-import com.zjl.dto.user.dto.GetTokenDto;
 import com.zjl.dto.user.dto.GetUserDto;
 import com.zjl.dto.user.dto.JwtTokenDto;
-import com.zjl.subject.adapter.FeignAdapter;
+import com.zjl.subject.adapter.UserFeignAdapter;
 import com.zjl.subject.adapter.UserAdapter;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +18,7 @@ public class TestController {
     private UserAdapter userAdapter;
 
     @Resource
-    private FeignAdapter feignAdapter;
+    private UserFeignAdapter feignAdapter;
 
     @RequestMapping(path = "/get/{id}", method = RequestMethod.GET, produces = {"application/json;charset=utf-8"})
     @ResponseBody

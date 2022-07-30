@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-@NacosConfigurationProperties(dataId = "user-service", prefix = "user",groupId = "DEFAULT_GROUP", type = ConfigType.JSON, autoRefreshed = true)
+@NacosConfigurationProperties(dataId = "user-service-datasource", groupId = "datasource", type = ConfigType.JSON, autoRefreshed = true)
 @Component
 public class DemoConfig {
 

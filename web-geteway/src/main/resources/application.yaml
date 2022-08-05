@@ -1,0 +1,86 @@
+server:
+  port: 8090
+
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    jmx:
+      exposure:
+        include: "*"
+    web:
+      exposure:
+        include: "*"
+  health:
+    sentinel:
+      enabled: false
+spring:
+  application:
+    name: web-gateway
+  cloud:
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080
+      web-context-unify: false
+      #饥饿加载
+      eager: true
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        file-extension: yaml
+        refresh-enabled: true
+        enabled: true
+        server-addr: 127.0.0.1:8848
+        group: DEFAULT_GROUP
+        endpoint: 127.0.0.1:8848
+
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: subject
+          uri: lb://subject-service
+          predicates:
+            - Path=/v1/subject/**
+            #            - Path=/v1/{segment}
+            #            - After=2022-08-05T10:00:00.000+08:00[Asia/Shanghai]
+            #            - Before=2023-08-05T20:00:00.000+08:00[Asia/Shanghai]
+            - Between=2022-08-05T10:00:00.000+08:00[Asia/Shanghai],2023-08-05T20:00:00.000+08:00[Asia/Shanghai]
+            #            - Cookie=token,123456
+            #匹配头 \d+ 1-n个数字
+            #            - Header=X-Request-Id, \d+
+            #            - Host=**.somehost.org,**xxx.com
+            - Method=GET,POST
+            #带一个token参数
+            #            - Query=token
+            #IP匹配
+            #            - RemoteAddr=1.0.0.123/24
+            #百分之80流量
+          #            - Weight=subjectGroup,8
+          filters:
+            - StripPrefix=2
+            # 加请求头参数
+            - AddResponseHeader=X-Response-red, blue
+            # 加响应头参数
+            - AddRequestHeader=X-Request-red, blue
+            #加参数
+            - AddRequestParameter=param1, hello
+        #        - id: subject
+        #          uri: lb://subject-service
+        #          predicates:
+        #            - Path=/v1/subject/**
+        #            #百分之20流量
+        #            - Weight=subjectGroup,2
+        - id: user
+          uri: lb://user-service
+          predicates:
+            - Path=/v1/user/**
+          filters:
+            - StripPrefix=2
+
+
+

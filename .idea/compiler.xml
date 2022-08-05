@@ -8,17 +8,21 @@
         <outputRelativeToContentRoot value="true" />
         <module name="user" />
         <module name="subject" />
+        <module name="web-geteway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="parent" target="1.8" />
       <module name="subject" target="1.8" />
       <module name="user" target="1.8" />
+      <module name="web-geteway" target="1.8" />
+      <module name="web-getway" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="subject" options="" />
+      <module name="web-getway" options="" />
     </option>
   </component>
 </project>

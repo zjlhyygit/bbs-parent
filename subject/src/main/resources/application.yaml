@@ -7,8 +7,21 @@ spring:
     sentinel:
       transport:
         dashboard: 127.0.0.1:8080
-      filter:
-        enabled: false
+      web-context-unify: false
+      #饥饿加载
+      eager: true
+      datasource:
+        ds1:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            data-id: subject-service-sentinel
+            group-id: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow
+    #      filter:
+    #        enabled: true
+    #    #        order: 2
+
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
@@ -41,4 +54,9 @@ user-service:
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
 
-
+resttemplate:
+  sentinel:
+    enabled: true
+feign:
+  sentinel:
+    enabled: true

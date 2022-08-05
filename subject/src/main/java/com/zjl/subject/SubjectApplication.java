@@ -1,8 +1,10 @@
 package com.zjl.subject;
 
+import com.alibaba.cloud.sentinel.annotation.SentinelRestTemplate;
 import com.alibaba.nacos.api.annotation.NacosProperties;
 import com.alibaba.nacos.spring.context.annotation.config.EnableNacosConfig;
 import com.netflix.loadbalancer.RandomRule;
+import com.zjl.sentinel.RestTemplateSentinelBlockHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -26,6 +28,8 @@ public class SubjectApplication {
 
     @Bean
     @LoadBalanced
+//    @SentinelRestTemplate(blockHandlerClass = RestTemplateSentinelBlockHandler.class, blockHandler = "block")
+    @SentinelRestTemplate
     public RestTemplate restTemplate() {
         RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder();
         return restTemplateBuilder.build();

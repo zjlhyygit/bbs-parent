@@ -2,6 +2,7 @@ package com.zjl.user.controller;
 
 import com.zjl.dto.user.dto.AddUserDto;
 import com.zjl.dto.user.dto.GetUserDto;
+import com.zjl.sentinel.MyHttpResponseData;
 import com.zjl.user.config.DemoConfig;
 import com.zjl.user.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,8 +36,9 @@ public class UserController {
 
     @RequestMapping(path = "/get/{id}", method = RequestMethod.GET, produces = {"application/json;charset=utf-8"})
     @ResponseBody
-    public ResponseEntity<GetUserDto> getUserById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(userService.getUserById(id));
+    public ResponseEntity<MyHttpResponseData> getUserById(@PathVariable("id") Integer id) {
+        GetUserDto userDto = userService.getUserById(id);
+        return ResponseEntity.ok(new MyHttpResponseData<GetUserDto>(userDto,GetUserDto.class));
     }
 
     @RequestMapping(path = "/nacos/configTest", method = RequestMethod.GET, produces = {"application/json;charset=utf-8"})

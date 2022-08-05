@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/parent/parent.iml" filepath="$PROJECT_DIR$/parent/parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/subject/subject.iml" filepath="$PROJECT_DIR$/subject/subject.iml" />
       <module fileurl="file://$PROJECT_DIR$/user/user.iml" filepath="$PROJECT_DIR$/user/user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web-geteway/web-geteway.iml" filepath="$PROJECT_DIR$/web-geteway/web-geteway.iml" />
     </modules>
   </component>
 </project>

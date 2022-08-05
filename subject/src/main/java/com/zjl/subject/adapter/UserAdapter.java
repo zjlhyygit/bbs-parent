@@ -15,7 +15,7 @@ import java.io.UnsupportedEncodingException;
 
 public interface UserAdapter {
 
-    GetUserDto getUserById(Integer userId);
+    ResponseEntity<GetUserDto> getUserById(Integer userId);
 
 
 

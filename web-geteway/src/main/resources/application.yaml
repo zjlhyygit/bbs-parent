@@ -23,9 +23,18 @@ spring:
     sentinel:
       transport:
         dashboard: 127.0.0.1:8080
-      web-context-unify: false
+      web-context-unify: true
       #饥饿加载
       eager: true
+      scg:
+        fallback:
+          content-type: application/json
+          # 模式 response、redirect
+          mode: response
+          # 响应状态码
+          response-status: 429
+          # 响应信息
+          response-body: 对不起，已经被限流了！！！
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
@@ -36,6 +45,7 @@ spring:
         server-addr: 127.0.0.1:8848
         group: DEFAULT_GROUP
         endpoint: 127.0.0.1:8848
+
 
     gateway:
       discovery:
@@ -60,7 +70,9 @@ spring:
             #IP匹配
             #            - RemoteAddr=1.0.0.123/24
             #百分之80流量
-          #            - Weight=subjectGroup,8
+            #            - Weight=subjectGroup,8
+            #自定义断言工厂
+            - Token=123456
           filters:
             - StripPrefix=2
             # 加请求头参数
@@ -69,6 +81,7 @@ spring:
             - AddRequestHeader=X-Request-red, blue
             #加参数
             - AddRequestParameter=param1, hello
+            - RequestLog=prefix,gateway
         #        - id: subject
         #          uri: lb://subject-service
         #          predicates:

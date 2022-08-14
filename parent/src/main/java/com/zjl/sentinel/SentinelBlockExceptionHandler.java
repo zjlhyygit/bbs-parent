@@ -2,7 +2,6 @@ package com.zjl.sentinel;
 
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.alibaba.csp.sentinel.util.StringUtil;
 
 import javax.servlet.http.HttpServletRequest;

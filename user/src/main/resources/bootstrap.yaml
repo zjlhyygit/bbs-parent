@@ -9,6 +9,9 @@ spring:
     sentinel:
       transport:
         dashboard: 127.0.0.1:8080
+      web-context-unify: false
+      #饥饿加载
+      eager: true
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848

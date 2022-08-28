@@ -3,6 +3,16 @@ server:
 spring:
   application:
     name: subject-service
+  redis:
+    host: r-bp196lixccndz4ohh9pd.redis.rds.aliyuncs.com
+    port: 6379
+    pool:
+      max-active: 8
+      max-wait: 1
+      max-idle: 8
+      min-idle: 0
+    timeout: 0
+    password: Zjl10101028
   cloud:
     sentinel:
       transport:

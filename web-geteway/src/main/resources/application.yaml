@@ -16,6 +16,8 @@ management:
   health:
     sentinel:
       enabled: false
+    redis:
+      enabled: false
 spring:
   application:
     name: web-gateway
@@ -35,6 +37,14 @@ spring:
           response-status: 429
           # 响应信息
           response-body: 对不起，已经被限流了！！！
+      datasource:
+        ds1:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            data-id: web-gateway-sentinel
+            group-id: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
@@ -94,6 +104,3 @@ spring:
             - Path=/v1/user/**
           filters:
             - StripPrefix=2
-
-
-

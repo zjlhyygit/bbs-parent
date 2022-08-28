@@ -5,6 +5,7 @@ import com.zjl.user.mapper.model.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.skywalking.apm.toolkit.trace.Trace;
 import org.springframework.stereotype.Repository;
 
 @Repository

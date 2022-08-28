@@ -2,7 +2,11 @@ package com.zjl.webgetway.config;
 
 
 import com.alibaba.csp.sentinel.adapter.gateway.sc.SentinelGatewayFilter;
-import com.alibaba.csp.sentinel.adapter.spring.webflux.callback.BlockRequestHandler;
+import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.BlockRequestHandler;
+import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.GatewayCallbackManager;
+
+import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.RedirectBlockRequestHandler;
+import com.alibaba.csp.sentinel.adapter.gateway.sc.exception.SentinelGatewayBlockExceptionHandler;
 import com.zjl.webgetway.errPage.MyErrorWebExceptionHandler;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
@@ -55,9 +59,8 @@ public class GatewayConfiguration {
     }
 
 
-
-    @Bean("myErrorWebExceptionHandler")
-    @Order(Ordered.HIGHEST_PRECEDENCE)
+    //    @Bean("myErrorWebExceptionHandler")
+//    @Order(Ordered.HIGHEST_PRECEDENCE)
     public ErrorWebExceptionHandler myErrorWebExceptionHandler(ErrorAttributes errorAttributes) {
 
         MyErrorWebExceptionHandler exceptionHandler = new MyErrorWebExceptionHandler(
@@ -73,7 +76,7 @@ public class GatewayConfiguration {
     }
 
     /**
-     * 自定义的BlockRequestHandler
+     * 自定义的BlockRequestHandler 错误页面
      *
      * @return
      */
@@ -84,7 +87,7 @@ public class GatewayConfiguration {
             public Mono<ServerResponse> handleRequest(ServerWebExchange serverWebExchange, Throwable throwable) {
                 return ServerResponse.status(HttpStatus.BAD_GATEWAY)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(BodyInserters.fromValue("服务器太热了，它罢工了~" + throwable.getClass()));
+                        .body(BodyInserters.fromValue("服务器过载，请稍后.~" + throwable.getClass()));
             }
         };
         return blockRequestHandler;
@@ -93,8 +96,20 @@ public class GatewayConfiguration {
 
     @Bean
     @Order(-1)
-    public GlobalFilter sentinelGatewayFilter(){
+    public GlobalFilter sentinelGatewayFilter() {
         return new SentinelGatewayFilter();
+    }
+
+    @Bean
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    public SentinelGatewayBlockExceptionHandler sentinelGatewayBlockExceptionHandler(BlockRequestHandler myBlockRequestHandler) {
+
+
+        //重定向bloack处理
+        // GatewayCallbackManager.setBlockHandler(new RedirectBlockRequestHandler("http://www.baidu.com"));
+
+         GatewayCallbackManager.setBlockHandler(myBlockRequestHandler);
+        return new SentinelGatewayBlockExceptionHandler(viewResolvers, serverCodecConfigurer);
     }
 
 

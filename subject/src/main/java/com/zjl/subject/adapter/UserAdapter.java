@@ -1,5 +1,6 @@
 package com.zjl.subject.adapter;
 
+import com.zjl.dto.user.dto.AddUserDto;
 import com.zjl.dto.user.dto.GetTokenDto;
 import com.zjl.dto.user.dto.GetUserDto;
 import com.zjl.dto.user.dto.JwtTokenDto;
@@ -17,6 +18,6 @@ public interface UserAdapter {
 
     ResponseEntity<GetUserDto> getUserById(Integer userId);
 
-
+    ResponseEntity<Integer> addUser(AddUserDto addUserDto);
 
 }

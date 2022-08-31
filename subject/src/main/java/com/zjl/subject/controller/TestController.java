@@ -1,6 +1,7 @@
 package com.zjl.subject.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.zjl.dto.user.dto.AddUserDto;
 import com.zjl.dto.user.dto.GetUserDto;
 import com.zjl.dto.user.dto.JwtTokenDto;
 import com.zjl.sentinel.SubjectSentinelBlockHandler;
@@ -23,13 +24,13 @@ public class TestController {
     @Resource
     private UserFeignAdapter feignAdapter;
 
-    @RequestMapping(path = "/get/{id}", method = RequestMethod.GET, produces = {"application/json;charset=utf-8"})
+    @RequestMapping(path = "get/{id}", method = RequestMethod.GET, produces = {"application/json;charset=utf-8"})
     @ResponseBody
     public ResponseEntity<GetUserDto> getUserById(@PathVariable("id") Integer id) {
         return userAdapter.getUserById(id);
     }
 
-    @RequestMapping(path = "/get/testRt", method = RequestMethod.GET, produces = {"application/json;charset=utf-8"})
+    @RequestMapping(path = "get/testRt", method = RequestMethod.GET, produces = {"application/json;charset=utf-8"})
     @ResponseBody
     public ResponseEntity<String> testRt() {
         try {
@@ -46,9 +47,15 @@ public class TestController {
     @RequestMapping(path = "jwt/get", method = RequestMethod.GET, produces = {"application/json;charset=utf-8"})
     @ResponseBody
 //    @SentinelResource(value = "jg", fallback = "getToken", fallbackClass = SubjectSentinelFallback.class)
-    @SentinelResource(value = "jg", blockHandler = "getToken", blockHandlerClass = SubjectSentinelBlockHandler.class)
+//    @SentinelResource(value = "jg", blockHandler = "getToken", blockHandlerClass = SubjectSentinelBlockHandler.class)
     public ResponseEntity<JwtTokenDto> getToken(@Param("account") String account, @Param("password") String password) {
         return feignAdapter.getToken(account, password);
+    }
+
+    @RequestMapping(path = "user/add", method = RequestMethod.POST, produces = {"application/json;charset=utf-8"})
+    @ResponseBody
+    public ResponseEntity<Integer> getToken(@RequestBody AddUserDto addUserDto) {
+        return userAdapter.addUser(addUserDto);
     }
 
 }

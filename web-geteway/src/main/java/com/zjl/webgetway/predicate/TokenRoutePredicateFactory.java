@@ -5,12 +5,11 @@ import org.springframework.cloud.gateway.handler.AsyncPredicate;
 import org.springframework.cloud.gateway.handler.predicate.AbstractRoutePredicateFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -38,6 +37,7 @@ public class TokenRoutePredicateFactory extends AbstractRoutePredicateFactory<To
 
     /**
      * 返回list
+     *
      * @return 字段
      */
     @Override
@@ -70,16 +70,18 @@ public class TokenRoutePredicateFactory extends AbstractRoutePredicateFactory<To
         return e -> {
             MultiValueMap<String, String> valueMap = e.getRequest().getQueryParams();
 
-            List<String> list = new ArrayList<>();
+            AtomicReference<String> token = new AtomicReference<>("uknown");
 
-            valueMap.forEach((k,v)->{
-                list.addAll(v);
+            valueMap.forEach((k, v) -> {
+                if (k.equals("token")) {
+                    if (v != null && v.size() > 0) {
+                        token.set(v.get(0));
+                    }
+                }
             });
 
-            for (String s : list) {
-                if (StringUtils.endsWithIgnoreCase(s,config.getToken())){
-                    return true;
-                }
+            if ("123456".equals(token.get())){
+                return true;
             }
 
             return false;

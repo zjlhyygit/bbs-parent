@@ -3,14 +3,22 @@ package com.zjl.user;
 import com.alibaba.nacos.api.annotation.NacosProperties;
 //import com.alibaba.nacos.spring.context.annotation.config.EnableNacosConfig;
 import com.alibaba.nacos.spring.context.annotation.config.EnableNacosConfig;
+import io.seata.rm.datasource.DataSourceProxy;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.Bean;
 
-@SpringBootApplication
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @EnableDiscoveryClient
-@EnableNacosConfig(globalProperties = @NacosProperties(serverAddr = "127.0.0.1:8848"))
+@EnableNacosConfig(globalProperties = @NacosProperties(serverAddr = "192.168.1.7:8848"))
 @MapperScan("com.zjl.user.mapper")
 public class UserApplication {
 

@@ -20,28 +20,29 @@ spring:
       web-context-unify: false
       #饥饿加载
       eager: true
-      datasource:
-        ds1:
-          nacos:
-            server-addr: 127.0.0.1:8848
-            data-id: subject-service-sentinel
-            group-id: DEFAULT_GROUP
-            data-type: json
-            rule-type: flow
+#      datasource:
+#        ds1:
+#          nacos:
+#            server-addr: 127.0.0.1:8848
+#            data-id: subject-service-sentinel
+#            group-id: DEFAULT_GROUP
+#            data-type: json
+#            rule-type: flow
     #      filter:
     #        enabled: true
     #    #        order: 2
 
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: 192.168.1.7:8848
       config:
         file-extension: yaml
         refresh-enabled: true
         enabled: true
-        server-addr: 127.0.0.1:8848
+        server-addr: 192.168.1.7:8848
         group: DEFAULT_GROUP
-        endpoint: 127.0.0.1:8848
+#        endpoint: 127.0.0.1:8848
+        namespace:
   #        extension-configs:
   #          - data-id: user-service-datasource
   #            group: datasource
@@ -70,3 +71,30 @@ resttemplate:
 feign:
   sentinel:
     enabled: true
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  tx-service-group: ${spring.application.name}-group
+  enable-auto-data-source-proxy: true
+  service:
+    vgroup-mapping:
+      subject-service-group: SE
+    grouplist:
+      default: 127.0.0.1:8091
+  registry:
+    type: nacos
+    nacos: # tc
+      server-addr: 192.168.1.7:8848
+#      namespace: ""
+      group: SEATA_GROUP
+      application: seata-server
+      cluster: SE
+  config:
+    type: nacos
+    nacos:
+      server-addr: 192.168.1.7:8848
+#      namespace: ""
+      # 这是默认值
+      data-id: seataServer.properties
+      # 这是默认值
+      group: SEATA_GROUP

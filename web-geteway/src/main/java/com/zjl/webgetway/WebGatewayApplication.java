@@ -11,7 +11,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication(exclude = {DruidDataSourceAutoConfigure.class,
         DataSourceAutoConfiguration.class})
 @EnableDiscoveryClient
-@EnableNacosConfig(globalProperties = @NacosProperties(serverAddr = "127.0.0.1:8848"))
+@EnableNacosConfig(globalProperties = @NacosProperties(serverAddr = "192.168.1.7:8848"))
 public class WebGatewayApplication {
 
     public static void main(String[] args) {

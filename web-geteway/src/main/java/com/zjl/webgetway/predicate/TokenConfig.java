@@ -2,7 +2,7 @@ package com.zjl.webgetway.predicate;
 
 public class TokenConfig {
 
-    String token;
+   private String token;
 
     public String getToken() {
         return token;

@@ -40,21 +40,21 @@ spring:
       datasource:
         ds1:
           nacos:
-            server-addr: 127.0.0.1:8848
+            server-addr: 192.168.1.7:8848
             data-id: web-gateway-sentinel
             group-id: DEFAULT_GROUP
             data-type: json
             rule-type: flow
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: 192.168.1.7:8848
       config:
         file-extension: yaml
         refresh-enabled: true
         enabled: true
-        server-addr: 127.0.0.1:8848
+        server-addr: 192.168.1.7:8848
         group: DEFAULT_GROUP
-        endpoint: 127.0.0.1:8848
+#        endpoint: 127.0.0.1:8848
 
 
     gateway:

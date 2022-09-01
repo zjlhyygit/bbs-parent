@@ -1,23 +1,23 @@
 package com.zjl.subject.adapter;
 
 import com.zjl.dto.user.dto.AddUserDto;
-import com.zjl.dto.user.dto.GetTokenDto;
-import com.zjl.dto.user.dto.GetUserDto;
-import com.zjl.dto.user.dto.JwtTokenDto;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.cloud.openfeign.FeignClient;
+import io.seata.rm.tcc.api.BusinessActionContext;
+import io.seata.rm.tcc.api.BusinessActionContextParameter;
+import io.seata.rm.tcc.api.LocalTCC;
+import io.seata.rm.tcc.api.TwoPhaseBusinessAction;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.UnsupportedEncodingException;
-
-
+@LocalTCC
 public interface UserAdapter {
 
-    ResponseEntity<GetUserDto> getUserById(Integer userId);
+//    public ResponseEntity<GetUserDto> getUserById(Integer userId);
 
-    ResponseEntity<Integer> addUser(AddUserDto addUserDto);
+    @TwoPhaseBusinessAction(name = "addUser", commitMethod = "commit",
+            rollbackMethod = "cancel")
+    public ResponseEntity<Integer> addUser(BusinessActionContext actionContext,@BusinessActionContextParameter(paramName = "addUserDto") AddUserDto addUserDto);
+
+    public boolean commit(BusinessActionContext context);
+
+    public boolean cancel(BusinessActionContext context);
 
 }

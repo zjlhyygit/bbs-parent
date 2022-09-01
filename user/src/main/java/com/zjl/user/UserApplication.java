@@ -3,7 +3,7 @@ package com.zjl.user;
 import com.alibaba.nacos.api.annotation.NacosProperties;
 //import com.alibaba.nacos.spring.context.annotation.config.EnableNacosConfig;
 import com.alibaba.nacos.spring.context.annotation.config.EnableNacosConfig;
-import io.seata.rm.datasource.DataSourceProxy;
+
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

@@ -22,7 +22,7 @@
     <property name="FILE_LOG_PATTERN" value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } %tid --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
 
     <!-- 日志文件的路径 -->
-    <property name="LOG_FILE" value="/logs/${applicationName}.log"/>
+    <property name="LOG_FILE" value="logs/${applicationName}.log"/>
 
     <!-- 日志文件 Appender -->
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
